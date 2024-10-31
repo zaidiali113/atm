@@ -1,6 +1,7 @@
 package com.example.atm.service
 
 import com.example.atm.model.TransactionEvent
+import com.example.atm.model.TransactionType
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -31,14 +32,35 @@ class TransactionListener {
         } ?: 0
     }
 
+    fun getTransactionBreakdown(atmId: String): Map<TransactionType, Int> {
+        val now = LocalDateTime.now()
+        val transactions = transactionMap[atmId] ?: emptyList()
+        return transactions.groupingBy { it.transactionType }.eachCount()
+    }
+
     private fun parseTransactionEvent(message: String): TransactionEvent? {
+        // Implement JSON parsing logic or message parsing logic
+        // For simplicity, let's assume the message is a comma-separated string:
+        // "atmId,customerId,timestamp,transactionType"
+
         val parts = message.split(",")
-        return if (parts.size == 3) {
-            TransactionEvent(
-                atmId = parts[0],
-                customerId = parts[1],
-                timestamp = LocalDateTime.parse(parts[2])
-            )
+        return if (parts.size == 4) {
+            val transactionType = when (parts[3].trim().uppercase()) {
+                "DEPOSIT" -> TransactionType.DEPOSIT
+                "CASH_WITHDRAWAL" -> TransactionType.CASH_WITHDRAWAL
+                "BALANCE_INFORMATION_REQUEST" -> TransactionType.BALANCE_INFORMATION_REQUEST
+                else -> null
+            }
+            if (transactionType != null) {
+                TransactionEvent(
+                    atmId = parts[0].trim(),
+                    customerId = parts[1].trim(),
+                    timestamp = LocalDateTime.parse(parts[2].trim()),
+                    transactionType = transactionType
+                )
+            } else {
+                null
+            }
         } else {
             null
         }
@@ -52,8 +74,8 @@ class TransactionListener {
     }
 
     // TODO: Maybe move to test class
-    fun addMockTransaction(atmId: String, customerId: String, timestamp: LocalDateTime) {
-        val event = TransactionEvent(atmId, customerId, timestamp)
+    fun addMockTransaction(atmId: String, customerId: String, timestamp: LocalDateTime, transactionType: TransactionType) {
+        val event = TransactionEvent(atmId, customerId, timestamp, transactionType)
         transactionMap.computeIfAbsent(atmId) { mutableListOf() }.add(event)
     }
 }

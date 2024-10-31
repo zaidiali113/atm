@@ -18,4 +18,15 @@ class TransactionController(val transactionListener: TransactionListener) {
             "customerCountLast24Hours" to count
         )
     }
+
+    @GetMapping("/atm/{atmId}/transaction-breakdown")
+    @PreAuthorize("hasRole('ADMIN')")
+    fun getTransactionBreakdown(@PathVariable("atmId") atmId: String): Map<String, Any> {
+        val breakdown = transactionListener.getTransactionBreakdown(atmId)
+        val formattedBreakdown = breakdown.mapKeys { it.key.name }
+        return mapOf(
+            "atmId" to atmId,
+            "transactionBreakdownLast24Hours" to formattedBreakdown
+        )
+    }
 }

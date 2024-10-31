@@ -25,6 +25,7 @@ class SecurityConfig {
                     .requestMatchers("/public/**").permitAll()
                     .requestMatchers("/admin/**").hasRole("ADMIN")
                     .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                    .requestMatchers("/atm/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
             }
             .httpBasic(Customizer.withDefaults())

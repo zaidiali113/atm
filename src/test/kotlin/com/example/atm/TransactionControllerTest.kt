@@ -21,6 +21,8 @@ class TransactionControllerTest(
 
     @BeforeEach
     fun setup() {
+        transactionListener.clearData()
+
         val now = LocalDateTime.now()
 
         transactionListener.addMockTransaction("ATM001", "Customer001", now.minusHours(1), TransactionType.DEPOSIT)

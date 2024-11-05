@@ -78,4 +78,8 @@ class TransactionListener {
         val event = TransactionEvent(atmId, customerId, timestamp, transactionType)
         transactionMap.computeIfAbsent(atmId) { mutableListOf() }.add(event)
     }
+
+    fun clearData() {
+        transactionMap.clear()
+    }
 }

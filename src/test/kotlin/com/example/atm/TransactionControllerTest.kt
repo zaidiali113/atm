@@ -1,7 +1,7 @@
 package com.example.atm
 
 import com.example.atm.model.TransactionType
-import com.example.atm.service.TransactionListener
+import com.example.atm.service.listener.TransactionListener
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

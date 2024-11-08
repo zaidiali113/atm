@@ -1,7 +1,7 @@
 package com.example.atm
 
 import com.example.atm.model.*
-import com.example.atm.service.FailureListener
+import com.example.atm.service.listener.FailureListener
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

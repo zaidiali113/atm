@@ -1,6 +1,6 @@
 package com.example.atm.controller
 
-import com.example.atm.service.TransactionListener
+import com.example.atm.service.listener.TransactionListener
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable

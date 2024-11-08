@@ -1,4 +1,4 @@
-package com.example.atm.service
+package com.example.atm.service.listener
 
 import com.example.atm.model.FailureEvent
 import com.example.atm.model.FailureType

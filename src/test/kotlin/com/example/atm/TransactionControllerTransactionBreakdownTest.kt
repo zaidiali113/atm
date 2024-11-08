@@ -1,7 +1,7 @@
 package com.example.atm
 
 import com.example.atm.model.TransactionType
-import com.example.atm.service.TransactionListener
+import com.example.atm.service.listener.TransactionListener
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
@@ -10,8 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.security.test.context.support.WithMockUser
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
-import org.springframework.web.util.UriUtils
-import java.nio.charset.StandardCharsets
 import java.time.LocalDateTime
 
 @SpringBootTest

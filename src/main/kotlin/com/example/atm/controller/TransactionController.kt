@@ -26,7 +26,7 @@ class TransactionController(val transactionListener: TransactionListener) {
         val formattedBreakdown = breakdown.mapKeys { it.key.name }
         return mapOf(
             "atmId" to atmId,
-            "transactionBreakdownLast24Hours" to formattedBreakdown
+            "transactionBreakdown" to formattedBreakdown
         )
     }
 }
